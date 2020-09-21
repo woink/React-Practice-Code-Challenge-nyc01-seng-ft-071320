@@ -1,23 +1,29 @@
-import React, { Fragment } from 'react'
+import React from 'react';
 
-const Sushi = (props) => {
-  return (
-    <div className="sushi">
-      <div className="plate" 
-           onClick={/* Give me a callback! */ null}>
-        { 
-          /* Tell me if this sushi has been eaten! */ 
-          false ?
-            null
-          :
-            <img src={/* Give me an image source! */ } width="100%" />
-        }
-      </div>
-      <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
-      </h4>
-    </div>
-  )
+class Sushi extends React.Component {
+	clickHandler = () => {
+		return this.props.addToEaten(this.props.sush);
+	};
+
+  componentDidUpdate = () => {
+    return this.props.eaten
+  }
+
+	render() {
+		return (
+			<div className="sushi">
+				<div className="plate" onClick={this.clickHandler}>
+					{
+						/* Tell me if this sushi has been eaten! */
+						this.props.eatenList.includes(this.props.sush) ? null : <img alt="" src={this.props.sush.img_url} width="100%" />
+					}
+				</div>
+				<h4 className="sushi-details">
+					{this.props.sush.name} - ${this.props.sush.price}
+				</h4>
+			</div>
+		);
+	}
 }
 
-export default Sushi
+export default Sushi;
